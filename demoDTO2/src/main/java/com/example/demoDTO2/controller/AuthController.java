@@ -55,7 +55,7 @@ public class AuthController {
 
 
 
-    
+
     @PostMapping("/register")
     public ResponseEntity<?> registerStudent(@RequestBody StudentWithUserDTO dto) {
         if (dto.getUser() == null || dto.getStudent() == null) {
