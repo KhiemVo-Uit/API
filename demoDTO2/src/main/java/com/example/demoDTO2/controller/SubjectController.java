@@ -44,7 +44,6 @@ public class SubjectController {
         return ResponseEntity.ok("Gán thành công tất cả sinh viên với tất cả môn học");
     }
 
-
     @PostMapping
     public ResponseEntity<SubjectDTO> create(@RequestBody SubjectDTO dto) {
         SubjectDTO created = subjectService.create(dto);
