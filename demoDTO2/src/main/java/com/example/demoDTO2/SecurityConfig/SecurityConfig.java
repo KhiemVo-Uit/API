@@ -13,29 +13,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private RoleBasedSuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/teacher/**").hasRole("TEACHER")
-                        .requestMatchers("/students/**").hasRole("STUDENT")
-                        .requestMatchers("/register", "/login", "/css/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .successHandler(successHandler)   // <-- dùng handler
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
-                );
+                .httpBasic(Customizer.withDefaults()); // hoặc bỏ luôn nếu không dùng basic auth
+
         return http.build();
     }
 
