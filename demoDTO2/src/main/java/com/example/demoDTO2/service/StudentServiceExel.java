@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,14 +22,19 @@ import java.util.List;
 
 @Service
 public class StudentServiceExel {
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
+
     private BCryptPasswordEncoder passwordEncoder;  // Inject BCryptPasswordEncoder
+
+    @Autowired
+    public StudentServiceExel(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, StudentRepository studentRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.studentRepository = studentRepository;
+    }
 
     public List<StudentDtoExel> readStudentsFromExcel(MultipartFile file) throws IOException {
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
