@@ -5,6 +5,8 @@ package com.example.demoDTO2.entity;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Set;
 
 @Entity
